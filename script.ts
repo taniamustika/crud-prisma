@@ -3,35 +3,19 @@ import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  // //***create a single record***//
-  // const user = await prisma.user.create({
-  //   data: {
-  //     email: 'elsa@prisma.io',
-  //     name: 'Elsa Prisma',
+  //By unique identifier
+  const user = await prisma.user.findUnique({
+    where: {
+      email: 'elsa@prisma.io',
+    },
+  })
+  console.log(user)
+
+  // const user = await prisma.user.findUnique({
+  //   where: {
+  //     id: 99,
   //   },
   // })
-  // console.log(user)
-  let includePosts: boolean = true
-  let user: Prisma.UserCreateInput
-
-  if (includePosts) {
-    user = {
-      email: 'elsaaaprisma.io',
-      name: 'Elsa Prisma',
-      posts: {
-        create: {
-          title: 'Include this post!',
-        },
-      },
-    }
-  } else {
-    user = {
-      email: 'elsaaa@prisma.io',
-      name: 'Elsa Prisma'
-    }
-  }
-  const createUser = await prisma.user.create({ data: user, include: {posts: true} })
-  console.log(createUser)
 }
 
 main()
