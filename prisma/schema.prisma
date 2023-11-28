@@ -22,4 +22,5 @@ model Post {
   title String
   author User @relation(fields: [authorId], references: [id])
   authorId Int
+  likes Int
 }
