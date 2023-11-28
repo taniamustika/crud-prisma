@@ -3,21 +3,14 @@ import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  const findUser = await prisma.user.findFirst({
+  const users = await prisma.user.findMany ({
     where: {
-      posts: {
-        some: {
-          likes: {
-            gt: 100
-          }
-        }
-      }
+      email: {
+        endsWith: 'prisma.io',
+      },
     },
-    orderBy: {
-      id: "desc"
-    }
   })
-  console.log(findUser)
+  console.log(users)
 }
 
 main()
