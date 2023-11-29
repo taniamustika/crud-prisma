@@ -3,6 +3,7 @@ import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
+  // (name === StartWith('E') OR (Profile Views > 0 AND Role === 'ADMIN'))
   const users = await prisma.user.findMany({
     where: {
       OR: [
