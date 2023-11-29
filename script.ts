@@ -29,12 +29,16 @@ prisma.$on('query' as never, (e: any) => {
 
 async function main() {
   const user = await prisma.user.findUnique({
-    where:{
+    where: {
       email: 'elsa@prisma.io',
     },
     select: {
       email: true,
-      name: true
+      posts: {
+        select: {
+          likes: true,
+        }
+      }
     }
   })
   console.log(user)
