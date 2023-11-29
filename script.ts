@@ -28,27 +28,17 @@ prisma.$on('query' as never, (e: any) => {
 })
 
 async function main() {
-  // (name === StartWith('E') OR (Profile Views > 0 AND Role === 'ADMIN'))
   const users = await prisma.user.findMany({
     where: {
-      OR: [
-        {
-          name: {
-            startsWith: 'E',
-          },
-        },
-        {
-          AND: {
-            profileViews: {
-              gt: 0,
-            },
-            role: {
-              equals: 'ADMIN',
-            },
-          },
-        },
-      ],
-    },
+      email: {
+        endsWith: "prisma.io"
+      },
+      posts: {
+        some: {
+          likes: 10
+        }
+      }
+    }
   })
   console.log(users)
 }
