@@ -3,11 +3,25 @@ import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  const users = await prisma.user.findMany ({
+  const users = await prisma.user.findMany({
     where: {
-      email: {
-        endsWith: 'prisma.io',
-      },
+      OR: [
+        {
+          name: {
+            startsWith: 'E',
+          },
+        },
+        {
+          AND: {
+            profileViews: {
+              gt: 0,
+            },
+            role: {
+              equals: 'ADMIN',
+            },
+          },
+        },
+      ],
     },
   })
   console.log(users)
