@@ -28,15 +28,15 @@ prisma.$on('query' as never, (e: any) => {
 })
 
 async function main() {
-  const user = await prisma.user.findMany({
+  const updateUser = await prisma.user.update({
     where: {
-      role: 'ADMIN',
+      email: 'elsa@prisma.io',
     },
-    include: {
-      posts: true,
+    data: {
+      name: 'ELsa Inces',
     },
   })
-  console.dir(user, {depth: 10})
+  console.log(updateUser)
 }
 
 main()
