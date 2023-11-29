@@ -28,21 +28,14 @@ prisma.$on('query' as never, (e: any) => {
 })
 
 async function main() {
-  const upsertUser = await prisma.user.upsert({
-    where:{
-      email: 'elsa@prisma.io',
+  const updatePosts = await prisma.post.updateMany({
+    data: {
+      likes: {
+        increment: 1,
+      },
     },
-    update: {
-      name: 'Elsa Imoet',
-    },
-    create: {
-      email: 'elsa@prisma.io',
-      name:  'Elsa Imoet',
-      profileViews: 0,
-      role: 'ADMIN',
-    }
   })
-  console.log(upsertUser)
+  console.log(updatePosts)
 }
 
 main()
