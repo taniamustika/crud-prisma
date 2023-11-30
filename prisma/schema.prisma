@@ -22,7 +22,7 @@ model User {
 model Post {
   id Int @id @default(autoincrement())
   title String
-  author User @relation(fields: [authorId], references: [id])
+  author User @relation(fields: [authorId], references: [id], onDelete: Restrict)
   authorId Int
   likes Int
 }
