@@ -28,11 +28,8 @@ prisma.$on('query' as never, (e: any) => {
 })
 
 async function main() {
-  const deleteUser = await prisma.user.delete({
-    where: {
-      email: 'tama@prisma.io'
-    }
-  })
+  const deletePosts = await prisma.post.deleteMany()
+  const deleteUsers = await prisma.user.deleteMany()
 }
 
 main()
